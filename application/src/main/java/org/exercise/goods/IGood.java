@@ -2,7 +2,7 @@ package org.exercise.goods;
 
 import java.util.Date;
 
-public interface IGoods {
+public interface IGood {
     public int getId();
     public String getName();
     public Date getExpiryDate();

@@ -2,7 +2,7 @@ package org.exercise.goods;
 
 import java.util.Date;
 
-public class Goods implements IGoods {
+public class Good implements IGood {
     private static int idCounter = 1;
     private final int id;
     private String name;
@@ -11,7 +11,7 @@ public class Goods implements IGoods {
     private double salePrice;
     private Category category;
 
-    public Goods(String name, Date expiryDate, double price, Category category) {
+    public Good(String name, Date expiryDate, double price, Category category) {
         this.name = name;
         this.expiryDate = expiryDate;
         this.deliveryPrice = price;
@@ -83,7 +83,7 @@ public class Goods implements IGoods {
 
     @Override
     public String toString() {
-        return "Goods{" +
+        return "Good{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", expiryDate=" + expiryDate +
