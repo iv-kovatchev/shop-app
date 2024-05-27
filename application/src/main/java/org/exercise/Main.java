@@ -61,7 +61,7 @@ public class Main {
 
         PayDesk payDesk1 = new PayDesk();
         PayDesk payDesk2 = new PayDesk();
-        PayDesk payDesk3 = new PayDesk();
+        PayDesk payDesk33 = new PayDesk();
 
         StorePaydesksService storePaydesksService = new StorePaydesksService();
         storePaydesksService.buildPayDesk(payDesk1);
