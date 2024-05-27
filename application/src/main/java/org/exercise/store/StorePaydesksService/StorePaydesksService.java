@@ -14,9 +14,10 @@ public class StorePaydesksService {
     public void buildPayDesk(PayDesk payDesk) {
         if(!this.payDesks.contains(payDesk)) {
             this.payDesks.add(payDesk);
+            System.out.println("You added pay desk successfully!");
         }
         else {
-            System.out.println("You can't build the same paydesk!");
+            System.out.println("You can't build the same pay desk!");
         }
 
 

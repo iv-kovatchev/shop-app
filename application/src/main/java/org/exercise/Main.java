@@ -55,6 +55,8 @@ public class Main {
         store.addGood(Category.FOOD, warehouse1);
         store.addGood(Category.NON_FOOD, warehouse1);
 
+        System.out.println("The good in \"Fantastika\" are: ");
+
         for (IGood good : storeGoodsService.getGoods()) {
             System.out.println(good.toString());
         }
@@ -69,6 +71,8 @@ public class Main {
         storePaydesksService.buildPayDesk(payDesk1);
         storePaydesksService.buildPayDesk(payDesk1);
         storePaydesksService.buildPayDesk(payDesk2);
+
+        System.out.println("The paydesks are: ");
 
         for(PayDesk desk: storePaydesksService.getPayDesks()) {
             System.out.println(desk.toString());
