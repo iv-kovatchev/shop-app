@@ -1,14 +1,14 @@
 package org.exercise;
 
+import org.exercise.cashier.Cashier;
 import org.exercise.goods.Category;
-import org.exercise.goods.Good;
 import org.exercise.goods.IGood;
 import org.exercise.paydesk.PayDesk;
 import org.exercise.store.Store;
+import org.exercise.store.StoreCashiersService.StoreCashiersService;
 import org.exercise.store.StoreGoodsService.IStoreGoodsService;
 import org.exercise.store.StoreGoodsService.StoreGoodsService;
 import org.exercise.store.StorePaydesksService.StorePaydesksService;
-import org.exercise.store.StoreService;
 import org.exercise.warehouse.IWarehouse;
 import org.exercise.warehouse.Warehouse;
 
@@ -55,7 +55,7 @@ public class Main {
         store.addGood(Category.FOOD, warehouse1);
         store.addGood(Category.NON_FOOD, warehouse1);
 
-        System.out.println("The good in \"Fantastika\" are: ");
+        System.out.println("The goods in \"Fantastika\" are: ");
 
         for (IGood good : storeGoodsService.getGoods()) {
             System.out.println(good.toString());
@@ -65,18 +65,35 @@ public class Main {
         PayDesk payDesk2 = new PayDesk();
         PayDesk payDesk33 = new PayDesk();
 
-        StorePaydesksService storePaydesksService = new StorePaydesksService();
+        StoreCashiersService storeCashiersService = new StoreCashiersService();
+        StorePaydesksService storePaydesksService = new StorePaydesksService(storeCashiersService);
         storePaydesksService.buildPayDesk(payDesk1);
         storePaydesksService.buildPayDesk(payDesk1);
         storePaydesksService.buildPayDesk(payDesk1);
         storePaydesksService.buildPayDesk(payDesk1);
         storePaydesksService.buildPayDesk(payDesk2);
 
+        Cashier cashier1 = new Cashier("Ivan", 2200);
+        Cashier cashier2 = new Cashier("Rayna", 2250);
+
+        storeCashiersService.hireCashier(cashier1);
+        storeCashiersService.hireCashier(cashier1);
+        storeCashiersService.hireCashier(cashier1);
+        storeCashiersService.hireCashier(cashier1);
+        storeCashiersService.hireCashier(cashier1);
+        storeCashiersService.hireCashier(cashier2);
+
+        storePaydesksService.addCashierToPayDesk(payDesk1, cashier1);
+        storePaydesksService.addCashierToPayDesk(payDesk1, cashier1);
+        storePaydesksService.addCashierToPayDesk(payDesk33, cashier1);
+
         System.out.println("The paydesks are: ");
 
         for(PayDesk desk: storePaydesksService.getPayDesks()) {
             System.out.println(desk.toString());
         }
+
+        storePaydesksService.removeCashierFromPayDesk(payDesk1);
 
         /*System.out.println();
 

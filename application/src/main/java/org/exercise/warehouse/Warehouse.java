@@ -29,13 +29,16 @@ public class Warehouse implements IWarehouse {
 
     @Override
     public List<IGood> getAllGoodsByCategory(Category category) {
-        /*
-            PROVERI OSHtE TUKA ZA EXCEPTION
-        */
-
-        return this.goodsList.stream()
-                .filter(g -> g.getCategory() == category)
+        List<IGood> goods = this.goodsList.stream()
+                .filter(g -> g.getCategory() == category).limit(2)
                 .toList();
+
+        if(!goods.isEmpty()) {
+            return goods;
+        }
+        else {
+            throw new NoSuchElementException("There is not enough goods from this category in the warehouse!");
+        }
     }
 
     @Override

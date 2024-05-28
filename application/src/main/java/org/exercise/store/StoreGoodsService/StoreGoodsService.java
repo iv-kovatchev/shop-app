@@ -30,20 +30,13 @@ public class StoreGoodsService implements IStoreGoodsService {
     }
 
     public void addGood(Category category, IWarehouse warehouse) {
-        List<IGood> goods = warehouse.getAllGoodsByCategory(category);
+        IGood good = warehouse.getAllGoodsByCategory(category).getFirst();
+        overpriceGood(good);
 
-        if(!goods.isEmpty()) {
-            IGood good = goods.getFirst();
-            overpriceGood(good);
+        this.goods.add(good);
+        warehouse.removeGood(good);
 
-            this.goods.add(good);
-            warehouse.getAllGoods().remove(good);
-
-            System.out.println("The goods were delivered!");
-        }
-        else {
-            throw new NoSuchElementException("There is not enough goods from this category in the warehouse!");
-        }
+        System.out.println("The good was delivered!");
     }
 
     private void overpriceGood(IGood good) {

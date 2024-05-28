@@ -5,14 +5,29 @@ public class Cashier {
     private final int id;
     private String name;
     private double monthSalary;
+    private boolean isHired;
 
-    public Cashier(int id, String name, double monthSalary) {
-        this.id = generateId();
+    public Cashier(String name, double monthSalary) {
+        this.id = idCounter++;
         this.name = name;
         this.monthSalary = monthSalary;
+        this.isHired = false;
     }
 
-    private synchronized static int generateId() {
-        return idCounter++;
+    public String getName() {
+        return name;
+    }
+
+    public boolean isHired() {
+        return isHired;
+    }
+
+    @Override
+    public String toString() {
+        return "Cashier{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", monthSalary=" + monthSalary +
+                '}';
     }
 }

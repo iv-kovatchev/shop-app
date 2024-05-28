@@ -16,6 +16,22 @@ public class PayDesk {
         this.id = generateId();
     }
 
+    public void setCashier(Cashier cashier) {
+        this.cashier = cashier;
+    }
+
+    public void setProfit(double profit) {
+        this.profit = profit;
+    }
+
+    public Cashier getCashier() {
+        return cashier;
+    }
+
+    public double getProfit() {
+        return profit;
+    }
+
     @Override
     public String toString() {
         return "PayDesk{" +
