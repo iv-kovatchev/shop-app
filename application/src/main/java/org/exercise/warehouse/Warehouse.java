@@ -30,10 +30,23 @@ public class Warehouse implements IWarehouse {
     @Override
     public List<IGood> getAllGoodsByCategory(Category category) {
         List<IGood> goods = this.goodsList.stream()
-                .filter(g -> g.getCategory() == category).limit(2)
+                .filter(g -> g.getCategory() == category)
                 .toList();
 
         if(!goods.isEmpty()) {
+            return goods;
+        }
+        else {
+            throw new NoSuchElementException("There is not enough goods from this category in the warehouse!");
+        }
+    }
+
+    public List<IGood> getNumberOfGoodsByCategory(Category category, int quantity) {
+        List<IGood> goods = this.goodsList.stream()
+                .filter(g -> g.getCategory() == category).limit(quantity)
+                .toList();
+
+        if(goods.size() == quantity) {
             return goods;
         }
         else {
@@ -50,23 +63,5 @@ public class Warehouse implements IWarehouse {
         else {
             throw new NoSuchElementException("No good found!");
         }
-    }
-
-    @Override
-    public IGood removeGoodByCategory(Category category) {
-        Optional<IGood> goodsToRemove = this.goodsList.stream()
-                .filter(g -> g.getCategory() == category)
-                .findFirst();
-
-        if(goodsToRemove.isPresent()) {
-            this.goodsList.remove(goodsToRemove.get());
-            System.out.println("\"" + goodsToRemove.get().getName() + "\" was removed from the warehouse!");
-        }
-        else {
-            throw new NoSuchElementException("No goods found for category: " +
-                    (category.name().equals("NON_FOOD") ? "Non food" : "Food"));
-        }
-
-        return goodsToRemove.get();
     }
 }

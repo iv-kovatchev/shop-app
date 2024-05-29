@@ -9,10 +9,10 @@ import org.exercise.store.StoreCashiersService.StoreCashiersService;
 import org.exercise.store.StoreGoodsService.IStoreGoodsService;
 import org.exercise.store.StoreGoodsService.StoreGoodsService;
 import org.exercise.store.StorePaydesksService.StorePaydesksService;
+import org.exercise.store.StoreService.StoreService;
 import org.exercise.warehouse.IWarehouse;
 import org.exercise.warehouse.Warehouse;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Main {
@@ -24,49 +24,44 @@ public class Main {
 
         System.out.println(date);
         // Create a SimpleDateFormat instance with the desired pattern
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        // Format the date
-        String formattedDate = dateFormat.format(date);
 
         IWarehouse warehouse1 = new Warehouse("Warehouse #1");
 
         IGood good1 = warehouse1.createGood("Banana", date, 2.22, Category.FOOD);
         IGood good2 = warehouse1.createGood("Banana", date, 2.22, Category.FOOD);
+        IGood good5 = warehouse1.createGood("Banana", date, 2.22, Category.FOOD);
         IGood good3 = warehouse1.createGood("Ferrari", date, 1333332.22, Category.NON_FOOD);
         IGood good4 =  warehouse1.createGood("LG Screen", date, 222.22, Category.NON_FOOD);
 
         List<IGood> goods = warehouse1.getAllGoods();
 
-        /*for (IGood good : goods) {
-            System.out.println(good.toString());
-        }*/
-
-        IStoreGoodsService storeGoodsService = new StoreGoodsService(10, 15, 5, 10);
-
-
-
-        for (IGood good : storeGoodsService.getGoods()) {
+        for (IGood good : goods) {
             System.out.println(good.toString());
         }
 
-        Store store = new Store("Fantastico", storeGoodsService);
+        Store store = new Store("Fantastico", 10, 15, 5, 10);
         store.addGood(Category.FOOD, warehouse1);
         store.addGood(Category.FOOD, warehouse1);
         store.addGood(Category.FOOD, warehouse1);
-        store.addGood(Category.NON_FOOD, warehouse1);
+       // store.addGood(Category.NON_FOOD, warehouse1);
 
-        System.out.println("The goods in \"Fantastika\" are: ");
+        store.addGoods(Category.NON_FOOD, warehouse1, 10);
 
-        for (IGood good : storeGoodsService.getGoods()) {
+        System.out.println("The goods in \"Fantastiko\" are: ");
+
+        for (IGood good : store.getGoods()) {
             System.out.println(good.toString());
         }
 
-        PayDesk payDesk1 = new PayDesk();
-        PayDesk payDesk2 = new PayDesk();
-        PayDesk payDesk33 = new PayDesk();
+        store.buildPayDesk();
+        store.buildPayDesk();
+        store.buildPayDesk();
+        store.buildPayDesk();
 
-        StoreCashiersService storeCashiersService = new StoreCashiersService();
-        StorePaydesksService storePaydesksService = new StorePaydesksService(storeCashiersService);
+        /*StoreCashiersService storeCashiersService = new StoreCashiersService();
+        StorePaydesksService storePaydesksService = new StorePaydesksService();
+        StoreService storeService = new StoreService(storePaydesksService, storeGoodsService);
+
         storePaydesksService.buildPayDesk(payDesk1);
         storePaydesksService.buildPayDesk(payDesk1);
         storePaydesksService.buildPayDesk(payDesk1);
@@ -75,6 +70,7 @@ public class Main {
 
         Cashier cashier1 = new Cashier("Ivan", 2200);
         Cashier cashier2 = new Cashier("Rayna", 2250);
+        Cashier cashier3 = new Cashier("Georgi", 2250);
 
         storeCashiersService.hireCashier(cashier1);
         storeCashiersService.hireCashier(cashier1);
@@ -83,9 +79,9 @@ public class Main {
         storeCashiersService.hireCashier(cashier1);
         storeCashiersService.hireCashier(cashier2);
 
-        storePaydesksService.addCashierToPayDesk(payDesk1, cashier1);
-        storePaydesksService.addCashierToPayDesk(payDesk1, cashier1);
-        storePaydesksService.addCashierToPayDesk(payDesk33, cashier1);
+        storeService.addCashierToPayDesk(payDesk1, cashier1);
+        storeService.addCashierToPayDesk(payDesk1, cashier1);
+        storeService.addCashierToPayDesk(payDesk33, cashier1);
 
         System.out.println("The paydesks are: ");
 
@@ -93,7 +89,9 @@ public class Main {
             System.out.println(desk.toString());
         }
 
-        storePaydesksService.removeCashierFromPayDesk(payDesk1);
+        storeService.removeCashierFromPayDesk(payDesk1);
+
+        storeCashiersService.getCashiers().remove(cashier3);*/
 
         /*System.out.println();
 

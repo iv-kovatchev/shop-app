@@ -9,4 +9,5 @@ import java.util.List;
 public interface IStoreGoodsService {
     List<IGood> getGoods();
     void addGood(Category category, IWarehouse warehouse);
+    void addGoods(Category category, IWarehouse warehouse, int quantity);
 }

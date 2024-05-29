@@ -3,17 +3,19 @@ import org.exercise.goods.Category;
 import org.exercise.goods.IGood;
 import org.exercise.paydesk.PayDesk;
 import org.exercise.store.StoreGoodsService.IStoreGoodsService;
+import org.exercise.store.StoreService.IStoreService;
+import org.exercise.store.StoreService.StoreService;
 import org.exercise.warehouse.IWarehouse;
 
 import java.util.*;
 
 public class Store {
     private String name;
-    private final IStoreGoodsService storeGoodsService;
+    private final IStoreService storeService;
 
-    public Store(String name, IStoreGoodsService storeGoodsService) {
+    public Store(String name, int nonFoodOverpricePercent, int foodOverpricePercent, int reductionPricePercent, int daysBeforeExpiryDate) {
         this.name = name;
-        this.storeGoodsService = storeGoodsService;
+        this.storeService = new StoreService(nonFoodOverpricePercent, foodOverpricePercent, reductionPricePercent, daysBeforeExpiryDate);
     }
 
     public String getName() {
@@ -25,15 +27,18 @@ public class Store {
     }
 
     public void addGood(Category category, IWarehouse warehouse) {
-        try {
-            this.storeGoodsService.addGood(category, warehouse);
-        }
-        catch (NoSuchElementException e) {
-            System.out.println(e.getMessage());
-        }
+        this.storeService.addGood(category, warehouse);
+    }
+
+    public void addGoods(Category category, IWarehouse warehouse, int quantity) {
+        this.storeService.addGoods(category, warehouse, quantity);
+    }
+
+    public void buildPayDesk() {
+        this.storeService.buildPayDesk();
     }
 
     public List<IGood> getGoods() {
-        return this.storeGoodsService.getGoods();
+        return this.storeService.getGoods();
     }
 }

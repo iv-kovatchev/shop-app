@@ -12,7 +12,7 @@ public class StoreCashiersService {
     }
 
     public void hireCashier(Cashier cashier) {
-        if(!this.cashiers.contains(cashier) && !cashier.isHired()) {
+        if(!cashier.isHired()) {
             this.cashiers.add(cashier);
             System.out.println("This cashier " + cashier.getName() + " was hired!");
         }
@@ -23,5 +23,12 @@ public class StoreCashiersService {
 
     public HashSet<Cashier> getCashiers() {
         return cashiers;
+    }
+
+    @Override
+    public String toString() {
+        return "StoreCashiersService{" +
+                "cashiers=" + cashiers +
+                '}';
     }
 }

@@ -8,8 +8,12 @@ import java.util.List;
 
 public interface IWarehouse {
     IGood createGood(String name, Date expiryDate, double price, Category category);
+
     List<IGood> getAllGoods();
+
     List<IGood> getAllGoodsByCategory(Category category);
+
+    List<IGood> getNumberOfGoodsByCategory(Category category, int quantity);
+
     void removeGood(IGood good);
-    IGood removeGoodByCategory(Category category);
 }

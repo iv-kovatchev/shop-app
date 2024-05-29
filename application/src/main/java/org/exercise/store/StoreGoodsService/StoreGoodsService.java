@@ -26,7 +26,7 @@ public class StoreGoodsService implements IStoreGoodsService {
     }
 
     public List<IGood> getGoods() {
-        return goods;
+        return this.goods;
     }
 
     public void addGood(Category category, IWarehouse warehouse) {
@@ -37,6 +37,19 @@ public class StoreGoodsService implements IStoreGoodsService {
         warehouse.removeGood(good);
 
         System.out.println("The good was delivered!");
+    }
+
+    public void addGoods(Category category, IWarehouse warehouse, int quantity) {
+        List<IGood> goods = warehouse.getNumberOfGoodsByCategory(category, quantity);
+
+        for (IGood good : goods) {
+            overpriceGood(good);
+
+            this.goods.add(good);
+            warehouse.removeGood(good);
+        }
+
+        System.out.println("The goods was delivered!");
     }
 
     private void overpriceGood(IGood good) {
