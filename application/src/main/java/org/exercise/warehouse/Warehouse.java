@@ -41,6 +41,7 @@ public class Warehouse implements IWarehouse {
         }
     }
 
+    @Override
     public List<IGood> getNumberOfGoodsByCategory(Category category, int quantity) {
         List<IGood> goods = this.goodsList.stream()
                 .filter(g -> g.getCategory() == category).limit(quantity)

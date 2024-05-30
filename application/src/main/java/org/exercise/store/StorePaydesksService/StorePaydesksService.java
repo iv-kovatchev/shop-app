@@ -1,11 +1,14 @@
 package org.exercise.store.StorePaydesksService;
 
+import org.exercise.cashier.Cashier;
+import org.exercise.cashier.ICashier;
+import org.exercise.paydesk.IPayDesk;
 import org.exercise.paydesk.PayDesk;
 
 import java.util.HashSet;
 
 public class StorePaydesksService implements IStorePaydesksService {
-    private final HashSet<PayDesk> payDesks;
+    private final HashSet<IPayDesk> payDesks;
 
     public StorePaydesksService() {
         this.payDesks = new HashSet<>();
@@ -15,8 +18,18 @@ public class StorePaydesksService implements IStorePaydesksService {
         this.payDesks.add(new PayDesk());
     }
 
-    public HashSet<PayDesk> getPayDesks() {
+    public HashSet<IPayDesk> getPayDesks() {
         return this.payDesks;
+    }
+
+    public IPayDesk getPayDeskById(int id) {
+        for(IPayDesk payDesk : this.payDesks) {
+            if(payDesk.getId() == id) {
+                return payDesk;
+            }
+        }
+
+        return null;
     }
 
     @Override

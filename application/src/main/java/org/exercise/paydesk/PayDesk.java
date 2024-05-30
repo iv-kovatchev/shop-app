@@ -1,11 +1,12 @@
 package org.exercise.paydesk;
 
 import org.exercise.cashier.Cashier;
+import org.exercise.cashier.ICashier;
 
-public class PayDesk {
+public class PayDesk implements IPayDesk {
     private static int idCounter = 1;
     private final int id;
-    private Cashier cashier;
+    private ICashier cashier;
     private double profit;
 
     public PayDesk() {
@@ -16,7 +17,11 @@ public class PayDesk {
         this.id = generateId();
     }
 
-    public void setCashier(Cashier cashier) {
+    public int getId() {
+        return id;
+    }
+
+    public void setCashier(ICashier cashier) {
         this.cashier = cashier;
     }
 
@@ -24,7 +29,7 @@ public class PayDesk {
         this.profit = profit;
     }
 
-    public Cashier getCashier() {
+    public ICashier getCashier() {
         return cashier;
     }
 

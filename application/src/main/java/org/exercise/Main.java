@@ -1,15 +1,11 @@
 package org.exercise;
 
 import org.exercise.cashier.Cashier;
+import org.exercise.cashier.ICashier;
 import org.exercise.goods.Category;
 import org.exercise.goods.IGood;
-import org.exercise.paydesk.PayDesk;
+import org.exercise.paydesk.IPayDesk;
 import org.exercise.store.Store;
-import org.exercise.store.StoreCashiersService.StoreCashiersService;
-import org.exercise.store.StoreGoodsService.IStoreGoodsService;
-import org.exercise.store.StoreGoodsService.StoreGoodsService;
-import org.exercise.store.StorePaydesksService.StorePaydesksService;
-import org.exercise.store.StoreService.StoreService;
 import org.exercise.warehouse.IWarehouse;
 import org.exercise.warehouse.Warehouse;
 
@@ -40,16 +36,20 @@ public class Main {
         }
 
         Store store = new Store("Fantastico", 10, 15, 5, 10);
-        store.addGood(Category.FOOD, warehouse1);
-        store.addGood(Category.FOOD, warehouse1);
-        store.addGood(Category.FOOD, warehouse1);
-       // store.addGood(Category.NON_FOOD, warehouse1);
+        store.addGood(warehouse1, Category.FOOD);
+        store.addGood(warehouse1, Category.FOOD);
+        store.addGood(warehouse1, Category.FOOD);
+       // store.addGood(warehouse1, Category.NON_FOOD);
 
-        store.addGoods(Category.NON_FOOD, warehouse1, 10);
+        store.addGoods(warehouse1, Category.NON_FOOD, 2);
 
         System.out.println("The goods in \"Fantastiko\" are: ");
 
-        for (IGood good : store.getGoods()) {
+        for (IGood good : store.getFoodGoods()) {
+            System.out.println(good.toString());
+        }
+
+        for (IGood good : store.getNonFoodGoods()) {
             System.out.println(good.toString());
         }
 
@@ -57,6 +57,31 @@ public class Main {
         store.buildPayDesk();
         store.buildPayDesk();
         store.buildPayDesk();
+
+        ICashier cashier1 = new Cashier("Ivan", 2200.0);
+        ICashier cashier2 = new Cashier("Rayna", 2500.0);
+        ICashier cashier3 = new Cashier("Diyan", 1100.0);
+
+        store.hireCashier(cashier1);
+        store.hireCashier(cashier2);
+        store.hireCashier(cashier2);
+
+        try {
+            ICashier foundCashier = store.getCashierByName("Ivan");
+            System.out.println(foundCashier.toString());
+
+            IPayDesk payDesk = store.getPayDeskById(1);
+            store.addCashierToPayDesk(payDesk, foundCashier);
+
+            System.out.println(payDesk);
+
+            ICashier foundCashier2 = store.getCashierByName("Rayna");
+
+            store.addCashierToPayDesk(payDesk, foundCashier2);
+        }
+        catch (NoSuchElementException e) {
+            System.out.println(e.getMessage());
+        }
 
         /*StoreCashiersService storeCashiersService = new StoreCashiersService();
         StorePaydesksService storePaydesksService = new StorePaydesksService();
