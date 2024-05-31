@@ -7,11 +7,9 @@ public class PayDesk implements IPayDesk {
     private static int idCounter = 1;
     private final int id;
     private ICashier cashier;
-    private double profit;
 
     public PayDesk() {
         this.cashier = null;
-        this.profit = 0;
 
         //Generate ID
         this.id = generateId();
@@ -25,16 +23,8 @@ public class PayDesk implements IPayDesk {
         this.cashier = cashier;
     }
 
-    public void setProfit(double profit) {
-        this.profit = profit;
-    }
-
     public ICashier getCashier() {
         return cashier;
-    }
-
-    public double getProfit() {
-        return profit;
     }
 
     @Override
@@ -42,7 +32,6 @@ public class PayDesk implements IPayDesk {
         return "PayDesk{" +
                 "id=" + id +
                 ", cashier=" + cashier +
-                ", profit=" + profit +
                 '}';
     }
 

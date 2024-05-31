@@ -5,6 +5,7 @@ import org.exercise.cashier.ICashier;
 import org.exercise.goods.Category;
 import org.exercise.goods.IGood;
 import org.exercise.paydesk.IPayDesk;
+import org.exercise.paydesk.PayDesk;
 import org.exercise.store.StoreCashiersService.IStoreCashiersService;
 import org.exercise.store.StoreCashiersService.StoreCashiersService;
 import org.exercise.store.StoreGoodsService.IStoreGoodsService;
@@ -113,49 +114,20 @@ public class StoreService implements IStoreService {
         this.storeCashiersService.removeCashierFromPayDesk(payDesk, cashier);
     }
 
-    public void sellGoods(int foodQuantity, int nonFoodQuantity, double clientMoney) {
-        //Check if we have enough goods
-        if (foodQuantity < this.storeGoodsService.getFoodGoods().size()) {
-            System.out.println("There is not enough food goods!");
+    public void sellGoods(int foodQuantity, int nonFoodQuantity, double clientMoney, int payDeskId) {
+        try {
+            IPayDesk payDesk = this.getPayDeskById(payDeskId);
+
+            if(payDesk.getCashier() == null) {
+                throw new NoSuchElementException("There is no cashier on this pay-desk!");
+            }
+
+            this.storeGoodsService.sellGoods(foodQuantity, nonFoodQuantity, clientMoney, payDesk);
         }
-        else {
-            double total = 0.0;
-            List<IGood> foodGoods = this.storeGoodsService
-                    .getFoodGoods().stream()
-                    .limit(foodQuantity)
-                    .toList();
-
-            //Check how much cost
-            for(IGood good : foodGoods) {
-                total += good.getSalePrice();
-            }
-
-            if(total > clientMoney) {
-                System.out.println("The client money aren't enough!");
-            }
-            else {
-                this.storeGoodsService.getFoodGoods().removeAll(foodGoods);
-            }
-        }
-    }
-
-    public void firedCashier(Cashier cashier) {
-        if (this.storeCashiersService.getCashiers().contains(cashier)) {
-            Iterator<IPayDesk> payDesks = this.storePaydesksService.getPayDesks().iterator();
-            boolean isCashierRemovedFromPayDesk = false;
-
-            while (payDesks.hasNext() && !isCashierRemovedFromPayDesk) {
-                IPayDesk currentPayDesk = payDesks.next();
-
-                if (currentPayDesk.getCashier() == cashier) {
-                    isCashierRemovedFromPayDesk = true;
-                    currentPayDesk.setCashier(null);
-                }
-            }
-
-            this.storeCashiersService.getCashiers().remove(cashier);
-        } else {
-            System.out.println("There is no cashier with that name!");
+        catch (IndexOutOfBoundsException
+               | NoSuchElementException
+               | IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

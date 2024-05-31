@@ -26,6 +26,7 @@ public class Main {
         IGood good1 = warehouse1.createGood("Banana", date, 2.22, Category.FOOD);
         IGood good2 = warehouse1.createGood("Banana", date, 2.22, Category.FOOD);
         IGood good5 = warehouse1.createGood("Banana", date, 2.22, Category.FOOD);
+        IGood good7 = warehouse1.createGood("PC", date, 2213.22, Category.NON_FOOD);
         IGood good3 = warehouse1.createGood("Ferrari", date, 1333332.22, Category.NON_FOOD);
         IGood good4 =  warehouse1.createGood("LG Screen", date, 222.22, Category.NON_FOOD);
 
@@ -82,6 +83,8 @@ public class Main {
         catch (NoSuchElementException e) {
             System.out.println(e.getMessage());
         }
+
+        store.sellGoods(2, 2, 4000.0, 2);
 
         /*StoreCashiersService storeCashiersService = new StoreCashiersService();
         StorePaydesksService storePaydesksService = new StorePaydesksService();

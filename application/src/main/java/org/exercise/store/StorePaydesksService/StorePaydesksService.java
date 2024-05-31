@@ -1,7 +1,5 @@
 package org.exercise.store.StorePaydesksService;
 
-import org.exercise.cashier.Cashier;
-import org.exercise.cashier.ICashier;
 import org.exercise.paydesk.IPayDesk;
 import org.exercise.paydesk.PayDesk;
 

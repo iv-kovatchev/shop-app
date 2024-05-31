@@ -7,9 +7,5 @@ public interface IPayDesk {
 
     int getId();
 
-    void setProfit(double profit);
-
     ICashier getCashier();
-
-    double getProfit();
 }

@@ -71,4 +71,8 @@ public class Store {
     public void removeCashierFromPayDesk(IPayDesk payDesk, ICashier cashier) {
         this.storeService.removeCashierFromPayDesk(payDesk, cashier);
     }
+
+    public void sellGoods(int foodQuantity, int nonFoodQuantity, double clientMoney, int payDeskId) {
+        this.storeService.sellGoods(foodQuantity, nonFoodQuantity, clientMoney, payDeskId);
+    }
 }

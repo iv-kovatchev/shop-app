@@ -72,4 +72,9 @@ public interface IStoreService {
      * Remove Cashier from PayDesk
      */
     void removeCashierFromPayDesk(IPayDesk payDesk, ICashier cashier);
+
+    /**
+     * Sell Food and Non-Food Goods to client if there is enough quantity
+     */
+    void sellGoods(int foodQuantity, int nonFoodQuantity, double clientMoney, int payDeskId);
 }
