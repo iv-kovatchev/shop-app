@@ -1,11 +1,13 @@
 package org.exercise.store.StoreGoodsService;
 
-import org.exercise.cashreceipt.CashReceipt;
-import org.exercise.cashreceipt.ICashReceipt;
-import org.exercise.goods.Category;
-import org.exercise.goods.IGood;
-import org.exercise.paydesk.IPayDesk;
+import org.exercise.models.cashreceipt.CashReceipt;
+import org.exercise.models.cashreceipt.ICashReceipt;
+import org.exercise.models.goods.Category;
+import org.exercise.models.goods.IGood;
+import org.exercise.models.paydesk.IPayDesk;
 import org.exercise.warehouse.IWarehouse;
+import org.exercise.warehouse.exceptions.NotEnoughGoodsByCategoryException;
+import java.time.temporal.ChronoUnit;
 
 import java.util.*;
 import java.time.LocalDateTime;
@@ -36,30 +38,44 @@ public class StoreGoodsService implements IStoreGoodsService {
     }
 
     public void sellGoods(int foodQuantity, int nonFoodQuantity, double clientMoney, IPayDesk payDesk) {
-        if(foodQuantity > this.foodGoods.size() || nonFoodQuantity > this.nonFoodGoods.size()) {
+        if (foodQuantity > this.foodGoods.size() || nonFoodQuantity > this.nonFoodGoods.size()) {
             throw new IndexOutOfBoundsException("There aren't enough goods!");
-        }
-        else {
+        } else {
             double total = 0.0;
 
-            List<IGood> nonFoodGoods = this.nonFoodGoods.stream().limit(nonFoodQuantity).toList();
-            List<IGood> foodGoods = this.foodGoods.stream().limit(foodQuantity).toList();
+            //NQMA NUJDA OT MINAVANE V LIST, SAMO SYS STREAM
 
-            if(foodQuantity > 0) {
-                for(IGood good : foodGoods) {
-                    total += good.getSalePrice();
-                }
+            if (foodQuantity > 0) {
+                total += this.foodGoods
+                        .stream()
+                        .limit(foodQuantity)
+                        .peek(good -> {
+                            if(isExpirySoon(good)) {
+                                double reductionPrice = (good.getPrice() * this.reductionPricePercent) / 100;
+                                good.setPrice(good.getPrice() - reductionPrice);
+                            }
+                        })
+                        .mapToDouble(IGood::getPrice)
+                        .sum();
             }
 
-            if(nonFoodQuantity > 0) {
-                for(IGood good : nonFoodGoods) {
-                    total += good.getSalePrice();
-                }
+            if (nonFoodQuantity > 0) {
+                total += this.nonFoodGoods
+                        .stream()
+                        .limit(nonFoodQuantity)
+                        .peek(good -> {
+                            if(isExpirySoon(good)) {
+                                double reductionPrice = (good.getPrice() * this.reductionPricePercent) / 100;
+                                good.setPrice(good.getPrice() - reductionPrice);
+                            }
+                        })
+                        .mapToDouble(IGood::getPrice)
+                        .sum();
             }
 
-            if(total <= clientMoney) {
+            if (total <= clientMoney) {
                 System.out.printf("Well done!!! We just sold " +
-                        (foodQuantity+nonFoodQuantity) +
+                        (foodQuantity + nonFoodQuantity) +
                         " products and have total profit: %.2f$%n", total);
 
                 //HERE WE WILL CREATE NEW CASH RECEIPT
@@ -67,53 +83,69 @@ public class StoreGoodsService implements IStoreGoodsService {
                 ICashReceipt cashReceipt =
                         new CashReceipt(payDesk.getCashier().getName(), LocalDateTime.now(), foodGoods, nonFoodGoods, total);
                 System.out.println(cashReceipt.toString());
-            }
-            else {
+
+
+                this.nonFoodGoods.removeAll(this.nonFoodGoods.stream().limit(nonFoodQuantity).toList());
+                this.foodGoods.removeAll(this.foodGoods.stream().limit(foodQuantity).toList());
+            } else {
                 throw new IllegalArgumentException("The client doesn't have enough money!");
             }
         }
     }
 
     public void addGood(IWarehouse warehouse, Category category) {
-        IGood good = warehouse.getAllGoodsByCategory(category).getFirst();
+        try {
+            IGood good = warehouse.getAllGoodsByCategory(category).getFirst();
 
-        if(category == Category.FOOD) {
-            foodGoods.add(good);
+            if (category == Category.FOOD) {
+                foodGoods.add(good);
+            } else {
+                nonFoodGoods.add(good);
+            }
+
+            warehouse.removeGood(good);
+            overpriceGood(good);
+
+            System.out.println("The good was delivered!");
         }
-        else {
-            nonFoodGoods.add(good);
+        catch (NotEnoughGoodsByCategoryException e) {
+            System.out.println(e.getMessage());
         }
-
-        warehouse.removeGood(good);
-        overpriceGood(good);
-
-        System.out.println("The good was delivered!");
     }
 
     public void addGoods(IWarehouse warehouse, Category category, int quantity) {
-        List<IGood> goods = warehouse.getNumberOfGoodsByCategory(category, quantity);
+        try {
+            List<IGood> goods = warehouse.getNumberOfGoodsByCategory(category, quantity);
 
-        for (IGood good : goods) {
-            warehouse.removeGood(good);
-            overpriceGood(good);
-        }
+            for (IGood good : goods) {
+                warehouse.removeGood(good);
+                overpriceGood(good);
+            }
 
-        if(category == Category.FOOD) {
-            foodGoods.addAll(goods);
-        }
-        else {
-            nonFoodGoods.addAll(goods);
-        }
+            if (category == Category.FOOD) {
+                foodGoods.addAll(goods);
+            } else {
+                nonFoodGoods.addAll(goods);
+            }
 
-        System.out.println("The goods were delivered!");
+            System.out.println("The goods were delivered!");
+        } catch (NotEnoughGoodsByCategoryException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void overpriceGood(IGood good) {
         double overprice =
-                good.getSalePrice() * (good.getCategory().name().equals("FOOD") ?
+                good.getPrice() * (good.getCategory().name().equals("FOOD") ?
                         (double) this.foodOverpricePercent / 100 :
                         (double) this.nonFoodOverpricePercent / 100);
 
-        good.setSalePrice(good.getSalePrice() + overprice);
+        good.setPrice(good.getPrice() + overprice);
+    }
+
+    private boolean isExpirySoon(IGood good) {
+        return ChronoUnit
+                .DAYS
+                .between(LocalDateTime.now(), good.getExpiryDate()) < this.daysBeforeExpiryDate;
     }
 }

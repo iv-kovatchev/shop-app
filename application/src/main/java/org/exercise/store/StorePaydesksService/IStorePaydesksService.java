@@ -1,6 +1,6 @@
 package org.exercise.store.StorePaydesksService;
 
-import org.exercise.paydesk.IPayDesk;
+import org.exercise.models.paydesk.IPayDesk;
 
 import java.util.HashSet;
 

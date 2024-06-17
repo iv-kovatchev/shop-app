@@ -1,10 +1,9 @@
 package org.exercise.store.StoreService;
 
-import org.exercise.cashier.Cashier;
-import org.exercise.cashier.ICashier;
-import org.exercise.goods.Category;
-import org.exercise.goods.IGood;
-import org.exercise.paydesk.IPayDesk;
+import org.exercise.models.cashier.ICashier;
+import org.exercise.models.goods.Category;
+import org.exercise.models.goods.IGood;
+import org.exercise.models.paydesk.IPayDesk;
 import org.exercise.warehouse.IWarehouse;
 
 import java.util.HashSet;
@@ -12,16 +11,16 @@ import java.util.List;
 
 public interface IStoreService {
     /**
-     * Add new good by category to the store from the warehouse if there is
+     * Deliver new good by category to the store from the warehouse if there is
      * enough amount of it.
      */
-    void addGood(IWarehouse warehouse, Category category);
+    void deliverGood(IWarehouse warehouse, Category category);
 
     /**
-     * Add number of goods by category to the store from the warehouse if there is
+     * Deliver number of goods by category to the store from the warehouse if there is
      * enough amount of it.
      */
-    void addGoods(IWarehouse warehouse, Category category, int quantity);
+    void deliverGoods(IWarehouse warehouse, Category category, int quantity);
 
     /**
      * Return all food goods in the store

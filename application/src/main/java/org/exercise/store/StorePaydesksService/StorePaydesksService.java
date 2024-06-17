@@ -1,9 +1,10 @@
 package org.exercise.store.StorePaydesksService;
 
-import org.exercise.paydesk.IPayDesk;
-import org.exercise.paydesk.PayDesk;
+import org.exercise.models.paydesk.IPayDesk;
+import org.exercise.models.paydesk.PayDesk;
 
 import java.util.HashSet;
+import java.util.NoSuchElementException;
 
 public class StorePaydesksService implements IStorePaydesksService {
     private final HashSet<IPayDesk> payDesks;
@@ -21,13 +22,13 @@ public class StorePaydesksService implements IStorePaydesksService {
     }
 
     public IPayDesk getPayDeskById(int id) {
-        for(IPayDesk payDesk : this.payDesks) {
-            if(payDesk.getId() == id) {
-                return payDesk;
-            }
+        IPayDesk payDesk = this.payDesks.stream().filter(pd -> pd.getId() == id).findFirst().orElse(null);
+
+        if (payDesk == null) {
+            throw new NoSuchElementException("There is no pay-desk with this id!");
         }
 
-        return null;
+        return payDesk;
     }
 
     @Override

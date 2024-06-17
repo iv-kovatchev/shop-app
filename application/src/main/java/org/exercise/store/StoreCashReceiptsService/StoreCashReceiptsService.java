@@ -1,7 +1,6 @@
 package org.exercise.store.StoreCashReceiptsService;
 
-import org.exercise.cashier.ICashier;
-import org.exercise.cashreceipt.ICashReceipt;
+import org.exercise.models.cashreceipt.ICashReceipt;
 
 import java.util.HashSet;
 

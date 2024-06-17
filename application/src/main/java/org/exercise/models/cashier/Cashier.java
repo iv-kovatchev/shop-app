@@ -1,4 +1,4 @@
-package org.exercise.cashier;
+package org.exercise.models.cashier;
 
 public class Cashier implements ICashier {
     private static int idCounter = 1;
@@ -14,18 +14,22 @@ public class Cashier implements ICashier {
         this.isHired = false;
     }
 
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public boolean isHired() {
         return isHired;
     }
 
+    @Override
     public void setHired(boolean hired) {
         isHired = hired;
     }

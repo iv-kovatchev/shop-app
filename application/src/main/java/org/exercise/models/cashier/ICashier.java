@@ -1,4 +1,4 @@
-package org.exercise.cashier;
+package org.exercise.models.cashier;
 
 public interface ICashier {
     int getId();

@@ -1,21 +1,20 @@
-package org.exercise.goods;
+package org.exercise.models.goods;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Good implements IGood {
     private static int idCounter = 1;
     private final int id;
     private String name;
-    private Date expiryDate;
-    private double deliveryPrice;
-    private double salePrice;
+    private LocalDateTime expiryDate;
+    private double price;
     private Category category;
 
-    public Good(String name, Date expiryDate, double price, Category category) {
+    public Good(String name, LocalDateTime expiryDate, double price, Category category) {
         this.name = name;
         this.expiryDate = expiryDate;
-        this.deliveryPrice = price;
-        this.salePrice = price;
+        this.price = price;
         this.category = category;
 
         //Generate ID
@@ -37,18 +36,13 @@ public class Good implements IGood {
     }
 
     @Override
-    public Date getExpiryDate() {
+    public LocalDateTime getExpiryDate() {
         return this.expiryDate;
     }
 
     @Override
-    public double getDeliveryPrice() {
-        return this.deliveryPrice;
-    }
-
-    @Override
-    public double getSalePrice() {
-        return this.salePrice;
+    public double getPrice() {
+        return this.price;
     }
 
     @Override
@@ -62,18 +56,13 @@ public class Good implements IGood {
     }
 
     @Override
-    public void setExpiryDate(Date expiryDate) {
+    public void setExpiryDate(LocalDateTime expiryDate) {
         this.expiryDate = expiryDate;
     }
 
     @Override
-    public void setDeliveryPrice(double deliveryPrice) {
-        this.deliveryPrice = deliveryPrice;
-    }
-
-    @Override
-    public void setSalePrice(double salePrice) {
-        this.salePrice = salePrice;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     @Override
@@ -87,8 +76,7 @@ public class Good implements IGood {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", expiryDate=" + expiryDate +
-                ", deliveryPrice=" + deliveryPrice +
-                ", salePrice=" + salePrice +
+                ", price=" + price +
                 ", category=" + category +
                 '}';
     }

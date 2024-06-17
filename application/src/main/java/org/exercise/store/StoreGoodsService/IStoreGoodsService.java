@@ -1,8 +1,8 @@
 package org.exercise.store.StoreGoodsService;
 
-import org.exercise.goods.Category;
-import org.exercise.goods.IGood;
-import org.exercise.paydesk.IPayDesk;
+import org.exercise.models.goods.Category;
+import org.exercise.models.goods.IGood;
+import org.exercise.models.paydesk.IPayDesk;
 import org.exercise.warehouse.IWarehouse;
 
 import java.util.List;

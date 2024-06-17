@@ -1,8 +1,7 @@
 package org.exercise.store.StoreCashiersService;
 
-import org.exercise.cashier.Cashier;
-import org.exercise.cashier.ICashier;
-import org.exercise.paydesk.IPayDesk;
+import org.exercise.models.cashier.ICashier;
+import org.exercise.models.paydesk.IPayDesk;
 
 import java.util.HashSet;
 

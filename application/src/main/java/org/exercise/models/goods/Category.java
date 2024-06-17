@@ -1,4 +1,4 @@
-package org.exercise.goods;
+package org.exercise.models.goods;
 
 public enum Category {
     NON_FOOD, FOOD

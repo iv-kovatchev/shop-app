@@ -1,10 +1,8 @@
 package org.exercise.store;
-import org.exercise.cashier.Cashier;
-import org.exercise.cashier.ICashier;
-import org.exercise.goods.Category;
-import org.exercise.goods.IGood;
-import org.exercise.paydesk.IPayDesk;
-import org.exercise.store.StoreGoodsService.IStoreGoodsService;
+import org.exercise.models.cashier.ICashier;
+import org.exercise.models.goods.Category;
+import org.exercise.models.goods.IGood;
+import org.exercise.models.paydesk.IPayDesk;
 import org.exercise.store.StoreService.IStoreService;
 import org.exercise.store.StoreService.StoreService;
 import org.exercise.warehouse.IWarehouse;
@@ -28,12 +26,12 @@ public class Store {
         this.name = name;
     }
 
-    public void addGood(IWarehouse warehouse,  Category category) {
-        this.storeService.addGood(warehouse, category);
+    public void deliverGood(IWarehouse warehouse,  Category category) {
+        this.storeService.deliverGood(warehouse, category);
     }
 
-    public void addGoods(IWarehouse warehouse, Category category, int quantity) {
-        this.storeService.addGoods(warehouse, category, quantity);
+    public void deliverGoods(IWarehouse warehouse, Category category, int quantity) {
+        this.storeService.deliverGoods(warehouse, category, quantity);
     }
 
     public void buildPayDesk() {

@@ -1,9 +1,8 @@
-package org.exercise.cashreceipt;
+package org.exercise.models.cashreceipt;
 
-import org.exercise.goods.IGood;
+import org.exercise.models.goods.IGood;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 public class CashReceipt implements ICashReceipt {

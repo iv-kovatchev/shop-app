@@ -1,14 +1,17 @@
 package org.exercise.warehouse;
 
-import org.exercise.goods.Category;
-import org.exercise.goods.Good;
-import org.exercise.goods.IGood;
+import org.exercise.models.goods.Category;
+import org.exercise.models.goods.Good;
+import org.exercise.models.goods.IGood;
+import org.exercise.warehouse.exceptions.GoodNotFoundException;
+import org.exercise.warehouse.exceptions.NotEnoughGoodsByCategoryException;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Warehouse implements IWarehouse {
     private String name;
-    private List<IGood> goodsList;
+    private final List<IGood> goodsList;
 
     public Warehouse(String name) {
         this.name = name;
@@ -16,10 +19,18 @@ public class Warehouse implements IWarehouse {
     }
 
     @Override
-    public IGood createGood(String name, Date expiryDate, double price, Category category) {
+    public IGood createGood(String name, LocalDateTime expiryDate, double price, Category category) {
         IGood good = new Good(name, expiryDate, price, category);
         this.goodsList.add(good);
         return good;
+    }
+
+    @Override
+    public void createGoods(String name, LocalDateTime expiryDate, double price, Category category, int quantity) {
+        for(int i = 0; i < quantity; i++) {
+            IGood good = new Good(name, expiryDate, price, category);
+            this.goodsList.add(good);
+        }
     }
 
     @Override
@@ -37,7 +48,7 @@ public class Warehouse implements IWarehouse {
             return goods;
         }
         else {
-            throw new NoSuchElementException("There is not enough goods from this category in the warehouse!");
+            throw new NotEnoughGoodsByCategoryException("There is not enough goods by this category in the warehouse!");
         }
     }
 
@@ -51,7 +62,7 @@ public class Warehouse implements IWarehouse {
             return goods;
         }
         else {
-            throw new NoSuchElementException("There is not enough goods from this category in the warehouse!");
+            throw new NotEnoughGoodsByCategoryException("There is not enough goods by this category in the warehouse!");
         }
     }
 
@@ -62,7 +73,7 @@ public class Warehouse implements IWarehouse {
             System.out.println("Removed good: " + good);
         }
         else {
-            throw new NoSuchElementException("No good found!");
+            throw new GoodNotFoundException("Good not found!");
         }
     }
 }

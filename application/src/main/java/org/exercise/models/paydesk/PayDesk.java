@@ -1,7 +1,6 @@
-package org.exercise.paydesk;
+package org.exercise.models.paydesk;
 
-import org.exercise.cashier.Cashier;
-import org.exercise.cashier.ICashier;
+import org.exercise.models.cashier.ICashier;
 
 public class PayDesk implements IPayDesk {
     private static int idCounter = 1;
@@ -15,14 +14,17 @@ public class PayDesk implements IPayDesk {
         this.id = generateId();
     }
 
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setCashier(ICashier cashier) {
         this.cashier = cashier;
     }
 
+    @Override
     public ICashier getCashier() {
         return cashier;
     }
