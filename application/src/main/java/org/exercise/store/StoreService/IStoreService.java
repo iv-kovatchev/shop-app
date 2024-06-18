@@ -65,7 +65,7 @@ public interface IStoreService {
     /**
      * Add Cashier to PayDesk if it's free
      */
-    void addCashierToPayDesk(IPayDesk payDesk, ICashier cashier);
+    void addCashierToPayDesk(int payDeskId, int cashierId);
 
     /**
      * Remove Cashier from PayDesk

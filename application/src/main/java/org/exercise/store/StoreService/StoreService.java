@@ -1,6 +1,7 @@
 package org.exercise.store.StoreService;
 
 import org.exercise.models.cashier.ICashier;
+import org.exercise.models.cashreceipt.ICashReceipt;
 import org.exercise.models.goods.Category;
 import org.exercise.models.goods.IGood;
 import org.exercise.models.paydesk.IPayDesk;
@@ -10,6 +11,8 @@ import org.exercise.store.StoreCashiersService.IStoreCashiersService;
 import org.exercise.store.StoreCashiersService.StoreCashiersService;
 import org.exercise.store.StoreGoodsService.IStoreGoodsService;
 import org.exercise.store.StoreGoodsService.StoreGoodsService;
+import org.exercise.store.StoreGoodsService.exceptions.NotEnoughGoodsException;
+import org.exercise.store.StoreGoodsService.exceptions.NotEnoughMoneyException;
 import org.exercise.store.StorePaydesksService.IStorePaydesksService;
 import org.exercise.store.StorePaydesksService.StorePaydesksService;
 import org.exercise.warehouse.IWarehouse;
@@ -90,8 +93,15 @@ public class StoreService implements IStoreService {
         return this.storeCashiersService.getCashierByName(name);
     }
 
-    public void addCashierToPayDesk(IPayDesk payDesk, ICashier cashier) {
-        this.storeCashiersService.addCashierToPayDesk(payDesk, cashier);
+    public void addCashierToPayDesk(int payDeskId, int cashierId) {
+        try {
+            IPayDesk payDesk = this.storePaydesksService.getPayDeskById(payDeskId);
+            ICashier cashier = this.storeCashiersService.getCashierById(cashierId);
+            this.storeCashiersService.addCashierToPayDesk(payDesk, cashier);
+        }
+        catch(NoSuchElementException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void removeCashierFromPayDesk(IPayDesk payDesk, ICashier cashier) {
@@ -106,11 +116,14 @@ public class StoreService implements IStoreService {
                 throw new NoSuchElementException("There is no cashier on this pay-desk!");
             }
 
-            this.storeGoodsService.sellGoods(foodQuantity, nonFoodQuantity, clientMoney, payDesk);
+            ICashReceipt cashReceipt = this.storeGoodsService.sellGoods(foodQuantity, nonFoodQuantity, clientMoney, payDesk);
+            this.storeCashReceiptsService.addCashReceipt(cashReceipt);
+            System.out.println("The goods were sold and the total profit from them is " + cashReceipt.getTotalProfit() + "$");
+
         }
-        catch (IndexOutOfBoundsException
-               | NoSuchElementException
-               | IllegalArgumentException e) {
+        catch (NotEnoughGoodsException
+               | NotEnoughMoneyException
+               | NoSuchElementException e) {
             System.out.println(e.getMessage());
         }
     }

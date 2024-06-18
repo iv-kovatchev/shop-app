@@ -24,6 +24,36 @@ public class CashReceipt implements ICashReceipt {
     }
 
     @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public String getCashierName() {
+        return cashierName;
+    }
+
+    @Override
+    public LocalDateTime getReceiptDate() {
+        return receiptDate;
+    }
+
+    @Override
+    public List<IGood> getFoodGoods() {
+        return foodGoods;
+    }
+
+    @Override
+    public List<IGood> getNonFoodGoods() {
+        return nonFoodGoods;
+    }
+
+    @Override
+    public double getTotalProfit() {
+        return totalProfit;
+    }
+
+    @Override
     public String toString() {
         return "CashReceipt{" +
                 "id=" + id +

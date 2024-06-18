@@ -48,13 +48,14 @@ public class StoreCashiersService implements IStoreCashiersService {
         if(this.cashiers.contains(cashier)) {
             if(payDesk.getCashier() == null) {
                 payDesk.setCashier(cashier);
+                System.out.println("Cashier " + cashier.getName() + " was added to the pay desk!");
             }
             else {
                 System.out.println("There is already cashier on this pay desk!");
             }
         }
         else {
-            System.out.println("The cashier isn't working in this store!");
+            System.out.println("The cashier with that id isn't working in this store!");
         }
     }
 

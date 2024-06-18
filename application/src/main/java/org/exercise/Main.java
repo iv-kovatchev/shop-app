@@ -14,7 +14,7 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        LocalDateTime date = LocalDateTime.of(2024, 6, 26, 20, 55, 44);
+        LocalDateTime date = LocalDateTime.of(2024, 6, 22, 20, 55, 44);
         LocalDateTime date1 = LocalDateTime.of(2024, 8, 11, 18, 33, 11);
         LocalDateTime date2 = LocalDateTime.of(2025, 8, 11, 18, 33, 11);
 
@@ -42,7 +42,7 @@ public class Main {
             System.out.println(good.toString());
         }
 
-        Store store = new Store("Fantastico", 10, 15, 5, 43);
+        Store store = new Store("Fantastico", 10, 15, 15, 10);
         store.deliverGood(warehouse1, Category.FOOD);
         store.deliverGood(warehouse1, Category.FOOD);
         store.deliverGood(warehouse1, Category.FOOD);
@@ -69,7 +69,7 @@ public class Main {
         //We create 3 new cashiers, who will find job soon
         ICashier cashier1 = new Cashier("Ivan", 2200.0);
         ICashier cashier2 = new Cashier("Rayna", 2500.0);
-        ICashier cashier3 = new Cashier("Diyan", 1100.0);
+        ICashier cashier3 = new Cashier("Peter", 1100.0);
 
         //We hire the first 2 cashiers to our store 'Fantastico'
         store.hireCashier(cashier1);
@@ -78,88 +78,28 @@ public class Main {
         store.hireCashier(cashier2);
 
         //Not existing cashier
-        ICashier foundCashier = store.getCashierByName("Ivann");
-
-        IPayDesk payDesk = store.getPayDeskById(1);
-        store.addCashierToPayDesk(payDesk, foundCashier);
-
-        System.out.println(payDesk);
+        store.addCashierToPayDesk(1, 1);
 
         //Find existing cashier
         ICashier foundCashier2 = store.getCashierByName("Rayna");
-        store.addCashierToPayDesk(payDesk, foundCashier2);
+        store.addCashierToPayDesk(1, 2);
 
-
+        System.out.println("\n------------------------------------------\n");
         store.sellGoods(2, 0, 4000.0, 1);
-        System.out.println("Namali li gi be -----------------------");
+        System.out.println("\n");
         store.sellGoods(2, 0, 4000.0, 1);
 
         store.deliverGood(warehouse1, Category.FOOD);
         store.deliverGood(warehouse1, Category.NON_FOOD);
         store.deliverGoods(warehouse1, Category.FOOD, 10);
 
-        warehouse1.createGood("Kiwi", date1, 1.22, Category.FOOD);
-        warehouse1.createGoods("Kiwi", date1, 1.22, Category.FOOD, 10);
+        warehouse1.createGood("Kiwi", date1, 1, Category.FOOD);
+        warehouse1.createGoods("Kiwi", date, 1, Category.FOOD, 10);
 
         store.deliverGood(warehouse1, Category.FOOD);
         store.deliverGoods(warehouse1, Category.FOOD, 10);
 
         store.sellGoods(5, 0, 4000.0, 1);
         store.sellGoods(5, 0, 4000.0, 1);
-
-        /*StoreCashiersService storeCashiersService = new StoreCashiersService();
-        StorePaydesksService storePaydesksService = new StorePaydesksService();
-        StoreService storeService = new StoreService(storePaydesksService, storeGoodsService);
-
-        storePaydesksService.buildPayDesk(payDesk1);
-        storePaydesksService.buildPayDesk(payDesk1);
-        storePaydesksService.buildPayDesk(payDesk1);
-        storePaydesksService.buildPayDesk(payDesk1);
-        storePaydesksService.buildPayDesk(payDesk2);
-
-        Cashier cashier1 = new Cashier("Ivan", 2200);
-        Cashier cashier2 = new Cashier("Rayna", 2250);
-        Cashier cashier3 = new Cashier("Georgi", 2250);
-
-        storeCashiersService.hireCashier(cashier1);
-        storeCashiersService.hireCashier(cashier1);
-        storeCashiersService.hireCashier(cashier1);
-        storeCashiersService.hireCashier(cashier1);
-        storeCashiersService.hireCashier(cashier1);
-        storeCashiersService.hireCashier(cashier2);
-
-        storeService.addCashierToPayDesk(payDesk1, cashier1);
-        storeService.addCashierToPayDesk(payDesk1, cashier1);
-        storeService.addCashierToPayDesk(payDesk33, cashier1);
-
-        System.out.println("The paydesks are: ");
-
-        for(PayDesk desk: storePaydesksService.getPayDesks()) {
-            System.out.println(desk.toString());
-        }
-
-        storeService.removeCashierFromPayDesk(payDesk1);
-
-        storeCashiersService.getCashiers().remove(cashier3);*/
-
-        /*System.out.println();
-
-        for (IGood good : goods) {
-            System.out.println(good.toString());
-        }*/
-
-        /*Comparator<IGood> comparator = new Comparator<IGood>() {
-            @Override
-            public int compare(IGood o1, IGood o2) {
-                return 0;
-            }
-
-            @Override
-            public boolean equals(Object obj) {
-                return false;
-            }
-        };*/
-
-
     }
 }

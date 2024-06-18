@@ -15,6 +15,8 @@ public class StoreCashReceiptsService implements IStoreCashReceiptsService {
         this.cashReceipts.add(cashReceipt);
     }
 
+    public void saveCashReceiptToFile(ICashReceipt cashReceipt) {}
+
     public HashSet<ICashReceipt> getCashReceipts() {
         return cashReceipts;
     }

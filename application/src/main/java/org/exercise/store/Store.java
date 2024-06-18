@@ -62,8 +62,8 @@ public class Store {
         this.storeService.hireCashier(cashier);
     }
 
-    public void addCashierToPayDesk(IPayDesk payDesk, ICashier cashier) {
-        this.storeService.addCashierToPayDesk(payDesk, cashier);
+    public void addCashierToPayDesk(int payDeskId, int cashierId) {
+        this.storeService.addCashierToPayDesk(payDeskId, cashierId);
     }
 
     public void removeCashierFromPayDesk(IPayDesk payDesk, ICashier cashier) {
