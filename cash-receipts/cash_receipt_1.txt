@@ -1,0 +1,21 @@
+Cash receipt #1
+
+Cashier Name: Ivan
+Created Date: 2024-06-19 18:45:26
+
+Goods: 
+Name: Banana
+Category: Food
+Price: 2.55$
+
+Name: PC
+Category: Non Food
+Price: 2434.54$
+
+Name: Ferrari
+Category: Non Food
+Price: 1466665.44$
+
+--------------------------------------------------
+
+Total: 4.34$

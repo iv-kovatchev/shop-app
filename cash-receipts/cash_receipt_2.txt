@@ -1,0 +1,49 @@
+Cash receipt #2
+
+Cashier Name: Ivan
+Created Date: 2024-06-19 18:45:26
+
+Goods: 
+Name: Kiwi
+Category: Food
+Price: 1.15$
+
+Name: Kiwi
+Category: Food
+Price: 1.15$
+
+Name: Kiwi
+Category: Food
+Price: 1.15$
+
+Name: Kiwi
+Category: Food
+Price: 1.15$
+
+Name: Kiwi
+Category: Food
+Price: 1.15$
+
+Name: Kiwi
+Category: Food
+Price: 1.15$
+
+Name: Kiwi
+Category: Food
+Price: 1.15$
+
+Name: PC
+Category: Non Food
+Price: 2434.54$
+
+Name: Ferrari
+Category: Non Food
+Price: 1466665.44$
+
+Name: LG Screen
+Category: Non Food
+Price: 244.44$
+
+--------------------------------------------------
+
+Total: 6.64$

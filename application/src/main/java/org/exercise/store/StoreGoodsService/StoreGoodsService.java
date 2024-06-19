@@ -27,7 +27,7 @@ public class StoreGoodsService implements IStoreGoodsService {
 
     /**
      * Another strategy which in my opinion is smarter
-     * We use EnumMap and add all goods by their category
+     * We can use EnumMap and add all goods by their category
      */
     private EnumMap<Category, IGood> storeGoods;
 

@@ -4,16 +4,16 @@ import org.exercise.models.cashier.Cashier;
 import org.exercise.models.cashier.ICashier;
 import org.exercise.models.goods.Category;
 import org.exercise.models.goods.IGood;
-import org.exercise.models.paydesk.IPayDesk;
 import org.exercise.store.Store;
 import org.exercise.warehouse.IWarehouse;
 import org.exercise.warehouse.Warehouse;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         LocalDateTime date = LocalDateTime.of(2024, 6, 22, 20, 55, 44);
         LocalDateTime date1 = LocalDateTime.of(2024, 8, 11, 18, 33, 11);
         LocalDateTime date2 = LocalDateTime.of(2025, 8, 11, 18, 33, 11);
