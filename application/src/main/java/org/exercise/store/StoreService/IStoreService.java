@@ -5,6 +5,7 @@ import org.exercise.models.goods.Category;
 import org.exercise.models.goods.IGood;
 import org.exercise.models.paydesk.IPayDesk;
 import org.exercise.warehouse.IWarehouse;
+import org.exercise.warehouse.exceptions.NotEnoughGoodsByCategoryException;
 
 import java.util.HashSet;
 import java.util.List;
@@ -76,4 +77,14 @@ public interface IStoreService {
      * Sell Food and Non-Food Goods to client if there is enough quantity
      */
     void sellGoods(int foodQuantity, int nonFoodQuantity, double clientMoney, int payDeskId);
+
+    /**
+     * Show information about the store: total salaries, total delivery cost, total profit from sold goods
+     */
+    void storeInfo(String name);
+
+    /**
+     * Static deserialize of goods
+     */
+    void deserializeGoods();
 }

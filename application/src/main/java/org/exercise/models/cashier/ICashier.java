@@ -9,5 +9,5 @@ public interface ICashier {
 
     void setHired(boolean hired);
 
-    //String toString();
+    double getMonthSalary();
 }

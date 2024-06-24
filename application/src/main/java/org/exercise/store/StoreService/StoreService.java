@@ -10,6 +10,7 @@ import org.exercise.store.StoreCashReceiptsService.StoreCashReceiptsService;
 import org.exercise.store.StoreCashiersService.IStoreCashiersService;
 import org.exercise.store.StoreCashiersService.StoreCashiersService;
 import org.exercise.store.StoreGoodsService.IStoreGoodsService;
+import org.exercise.store.StoreGoodsService.SerializeType;
 import org.exercise.store.StoreGoodsService.StoreGoodsService;
 import org.exercise.store.StoreGoodsService.exceptions.NotEnoughGoodsException;
 import org.exercise.store.StoreGoodsService.exceptions.NotEnoughMoneyException;
@@ -23,10 +24,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public class StoreService implements IStoreService {
-    private IStorePaydesksService storePaydesksService;
-    private IStoreCashiersService storeCashiersService;
-    private IStoreGoodsService storeGoodsService;
-    private IStoreCashReceiptsService storeCashReceiptsService;
+    private final IStorePaydesksService storePaydesksService;
+    private final IStoreCashiersService storeCashiersService;
+    private final IStoreGoodsService storeGoodsService;
+    private final IStoreCashReceiptsService storeCashReceiptsService;
 
     public StoreService(int nonFoodOverpricePercent, int foodOverpricePercent, int reductionPricePercent, int daysBeforeExpiryDate) {
         this.storePaydesksService = new StorePaydesksService();
@@ -118,7 +119,8 @@ public class StoreService implements IStoreService {
 
             ICashReceipt cashReceipt = this.storeGoodsService.sellGoods(foodQuantity, nonFoodQuantity, clientMoney, payDesk);
             this.storeCashReceiptsService.addCashReceipt(cashReceipt);
-            System.out.println("The goods were sold and the total profit from them is " + cashReceipt.getTotalProfit() + "$");
+            System.out.println("The goods were sold and the total profit from them is "
+                    + String.format("%.2f", cashReceipt.getTotalProfit()) + "$");
 
         }
         catch (NotEnoughGoodsException
@@ -126,5 +128,40 @@ public class StoreService implements IStoreService {
                | NoSuchElementException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public void storeInfo(String name) {
+        System.out.println("\n\"" + name + "\"");
+        System.out.println("------------------------------------------");
+
+        double totalSalaries = this.storeCashiersService
+                .getCashiers()
+                .stream()
+                .mapToDouble(ICashier::getMonthSalary).sum();
+        System.out.println("Total cashier salaries: " + String.format("%.2f", totalSalaries) + "$");
+        System.out.println("Total delivery cost: " + String.format("%.2f", storeGoodsService.getTotalDeliveryCost()) + "$\n");
+        System.out.println("Total profit by sold goods: " + String.format("%.2f", storeGoodsService.getTotalProfitBySoldGoods()) + "$");
+
+        System.out.println("\n------------------------------------------\n");
+
+        System.out.println("Total profit: " +
+                String.format("%.2f", (storeGoodsService.getTotalProfitBySoldGoods() - (totalSalaries + storeGoodsService.getTotalDeliveryCost()))));
+    }
+
+    public void deserializeGoods() {
+        System.out.println("- Delivered Goods:");
+        System.out.println("\t" + this.storeGoodsService.deserializeGood(1, SerializeType.DELIVERY));
+        System.out.println("\t" + this.storeGoodsService.deserializeGood(2, SerializeType.DELIVERY));
+        System.out.println("\t" + this.storeGoodsService.deserializeGood(3, SerializeType.DELIVERY));
+        System.out.println("\t" + this.storeGoodsService.deserializeGood(4, SerializeType.DELIVERY));
+        System.out.println("\t" + this.storeGoodsService.deserializeGood(5, SerializeType.DELIVERY));
+
+        System.out.println("\n------------------------------------------\n");
+
+        System.out.println("- Sold Goods:");
+        System.out.println("\t" + this.storeGoodsService.deserializeGood(3, SerializeType.SOLD));
+        System.out.println("\t" + this.storeGoodsService.deserializeGood(4, SerializeType.SOLD));
+        System.out.println("\t" + this.storeGoodsService.deserializeGood(5, SerializeType.SOLD));
+        System.out.println("\t" + this.storeGoodsService.deserializeGood(7, SerializeType.SOLD));
     }
 }

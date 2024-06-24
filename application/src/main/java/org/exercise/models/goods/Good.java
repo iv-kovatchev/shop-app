@@ -1,9 +1,13 @@
 package org.exercise.models.goods;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-public class Good implements IGood {
+public class Good implements IGood, Serializable {
+    @Serial
+    private static final long serialVersionUID = 123L;
     private static int idCounter = 1;
     private final int id;
     private String name;

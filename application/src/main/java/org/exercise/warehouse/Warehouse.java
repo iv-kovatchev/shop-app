@@ -39,7 +39,7 @@ public class Warehouse implements IWarehouse {
     }
 
     @Override
-    public List<IGood> getAllGoodsByCategory(Category category) {
+    public List<IGood> getAllGoodsByCategory(Category category) throws NotEnoughGoodsByCategoryException {
         List<IGood> goods = this.goodsList.stream()
                 .filter(g -> g.getCategory() == category)
                 .toList();
@@ -53,7 +53,7 @@ public class Warehouse implements IWarehouse {
     }
 
     @Override
-    public List<IGood> getNumberOfGoodsByCategory(Category category, int quantity) {
+    public List<IGood> getNumberOfGoodsByCategory(Category category, int quantity) throws NotEnoughGoodsByCategoryException {
         List<IGood> goods = this.goodsList.stream()
                 .filter(g -> g.getCategory() == category).limit(quantity)
                 .toList();
@@ -67,7 +67,7 @@ public class Warehouse implements IWarehouse {
     }
 
     @Override
-    public void removeGood(IGood good) {
+    public void removeGood(IGood good) throws GoodNotFoundException {
         if(this.goodsList.contains(good)) {
             goodsList.remove(good);
             System.out.println("Removed good: " + good);

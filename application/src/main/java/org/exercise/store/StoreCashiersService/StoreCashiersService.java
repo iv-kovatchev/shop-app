@@ -17,7 +17,7 @@ public class StoreCashiersService implements IStoreCashiersService {
         if(!cashier.isHired()) {
             this.cashiers.add(cashier);
             cashier.setHired(true);
-            System.out.println("This cashier " + cashier.getName() + " was hired!");
+            System.out.println("The cashier " + cashier.getName() + " was hired!");
         }
         else {
             System.out.println("This cashier is already hired!");

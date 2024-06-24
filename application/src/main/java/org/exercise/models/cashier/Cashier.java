@@ -30,6 +30,11 @@ public class Cashier implements ICashier {
     }
 
     @Override
+    public double getMonthSalary() {
+        return monthSalary;
+    }
+
+    @Override
     public void setHired(boolean hired) {
         isHired = hired;
     }

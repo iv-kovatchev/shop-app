@@ -1,6 +1,6 @@
 package org.exercise.store.StoreGoodsService.exceptions;
 
-public class NotEnoughGoodsException extends RuntimeException {
+public class NotEnoughGoodsException extends Exception {
     public NotEnoughGoodsException(String message) {
         super(message);
     }

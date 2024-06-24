@@ -2,12 +2,8 @@ package org.exercise.store.StoreCashReceiptsService;
 
 import org.exercise.models.cashreceipt.ICashReceipt;
 import org.exercise.models.goods.Category;
-import org.exercise.models.goods.Good;
 import org.exercise.models.goods.IGood;
-import org.exercise.utils.Utils;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
@@ -17,13 +13,25 @@ import java.util.List;
 public class StoreCashReceiptsService implements IStoreCashReceiptsService {
     private final HashSet<ICashReceipt> cashReceipts;
 
+    private int cashReceiptCounter = 0;
+
     public StoreCashReceiptsService() {
         this.cashReceipts = new HashSet<>();
+    }
+
+    public int getCashReceiptCounter() {
+        return cashReceiptCounter;
     }
 
     public void addCashReceipt(ICashReceipt cashReceipt) {
         this.cashReceipts.add(cashReceipt);
         this.saveCashReceiptToFile(cashReceipt);
+
+        cashReceiptCounter++;
+    }
+
+    public HashSet<ICashReceipt> getCashReceipts() {
+        return cashReceipts;
     }
 
     private void saveCashReceiptToFile(ICashReceipt cashReceipt) {
@@ -52,10 +60,6 @@ public class StoreCashReceiptsService implements IStoreCashReceiptsService {
         catch(IOException e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    public HashSet<ICashReceipt> getCashReceipts() {
-        return cashReceipts;
     }
 
     private String getSoldGoods(List<IGood> foodGoods, List<IGood> nonFoodGoods) {
