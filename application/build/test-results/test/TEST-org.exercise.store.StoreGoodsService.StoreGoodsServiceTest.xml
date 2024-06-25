@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.exercise.store.StoreGoodsService.StoreGoodsServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-06-25T21:28:16" hostname="DESKTOP-0ETORKQ" time="1.418">
+  <properties/>
+  <testcase name="Sell goods to client" classname="org.exercise.store.StoreGoodsService.StoreGoodsServiceTest" time="1.418"/>
+  <system-out><![CDATA[delivered-goods\serialized_good_1.ser (The system cannot find the path specified)
+Removed good: Good{id=1, name='Test Food Good', expiryDate=2024-07-06T00:28:18.041325100, price=2.15, category=FOOD}
+delivered-goods\serialized_good_2.ser (The system cannot find the path specified)
+Removed good: Good{id=2, name='Test Food Good', expiryDate=2024-07-06T00:28:18.041325100, price=2.15, category=FOOD}
+delivered-goods\serialized_good_3.ser (The system cannot find the path specified)
+Removed good: Good{id=3, name='Test Food Good', expiryDate=2024-07-06T00:28:18.041325100, price=2.15, category=FOOD}
+delivered-goods\serialized_good_4.ser (The system cannot find the path specified)
+Removed good: Good{id=4, name='Test Food Good', expiryDate=2024-07-06T00:28:18.041325100, price=2.15, category=FOOD}
+delivered-goods\serialized_good_5.ser (The system cannot find the path specified)
+Removed good: Good{id=5, name='Test Food Good', expiryDate=2024-07-06T00:28:18.041325100, price=2.15, category=FOOD}
+The goods were delivered!
+delivered-goods\serialized_good_6.ser (The system cannot find the path specified)
+Removed good: Good{id=6, name='Test Non-Food Good', expiryDate=2024-07-06T00:28:18.145974200, price=2.15, category=NON_FOOD}
+delivered-goods\serialized_good_7.ser (The system cannot find the path specified)
+Removed good: Good{id=7, name='Test Non-Food Good', expiryDate=2024-07-06T00:28:18.145974200, price=2.15, category=NON_FOOD}
+delivered-goods\serialized_good_8.ser (The system cannot find the path specified)
+Removed good: Good{id=8, name='Test Non-Food Good', expiryDate=2024-07-06T00:28:18.145974200, price=2.15, category=NON_FOOD}
+delivered-goods\serialized_good_9.ser (The system cannot find the path specified)
+Removed good: Good{id=9, name='Test Non-Food Good', expiryDate=2024-07-06T00:28:18.145974200, price=2.15, category=NON_FOOD}
+delivered-goods\serialized_good_10.ser (The system cannot find the path specified)
+Removed good: Good{id=10, name='Test Non-Food Good', expiryDate=2024-07-06T00:28:18.145974200, price=2.15, category=NON_FOOD}
+delivered-goods\serialized_good_11.ser (The system cannot find the path specified)
+Removed good: Good{id=11, name='Test Non-Food Good', expiryDate=2024-06-16T00:28:18.146989600, price=2.15, category=NON_FOOD}
+The goods were delivered!
+sold-goods\serialized_good_6.ser (The system cannot find the path specified)
+sold-goods\serialized_good_7.ser (The system cannot find the path specified)
+sold-goods\serialized_good_8.ser (The system cannot find the path specified)
+sold-goods\serialized_good_9.ser (The system cannot find the path specified)
+sold-goods\serialized_good_10.ser (The system cannot find the path specified)
+sold-goods\serialized_good_1.ser (The system cannot find the path specified)
+sold-goods\serialized_good_2.ser (The system cannot find the path specified)
+sold-goods\serialized_good_3.ser (The system cannot find the path specified)
+sold-goods\serialized_good_4.ser (The system cannot find the path specified)
+sold-goods\serialized_good_5.ser (The system cannot find the path specified)
+]]></system-out>
+  <system-err><![CDATA[WARNING: A Java agent has been loaded dynamically (C:\Users\Ivan\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy-agent\1.14.15\b4cc9d88d5de562bf75b3a54ab436ad01b3f72d\byte-buddy-agent-1.14.15.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+</testsuite>
