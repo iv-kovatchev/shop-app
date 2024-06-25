@@ -9,6 +9,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IWarehouse {
+    String getName();
+
+    List<IGood> getGoodsList();
+
     /**
      * Create new Good
      */

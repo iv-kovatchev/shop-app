@@ -1,7 +1,7 @@
 Cash receipt #1
 
 Cashier Name: Ivan
-Created Date: 2024-06-24 19:40:08
+Created Date: 2024-06-24 20:14:19
 
 Goods: 
 Name: Banana

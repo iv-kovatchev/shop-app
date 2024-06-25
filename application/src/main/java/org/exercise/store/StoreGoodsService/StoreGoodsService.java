@@ -5,7 +5,6 @@ import org.exercise.models.cashreceipt.ICashReceipt;
 import org.exercise.models.goods.Category;
 import org.exercise.models.goods.IGood;
 import org.exercise.models.paydesk.IPayDesk;
-import org.exercise.models.paydesk.PayDesk;
 import org.exercise.store.StoreGoodsService.exceptions.NotEnoughGoodsException;
 import org.exercise.store.StoreGoodsService.exceptions.NotEnoughMoneyException;
 import org.exercise.warehouse.IWarehouse;
@@ -19,12 +18,12 @@ import java.util.*;
 import java.time.LocalDateTime;
 
 public class StoreGoodsService implements IStoreGoodsService {
-    private List<IGood> foodGoods;
-    private List<IGood> nonFoodGoods;
-    private int nonFoodOverpricePercent;
-    private int foodOverpricePercent;
-    private int reductionPricePercent;
-    private int daysBeforeExpiryDate;
+    private final List<IGood> foodGoods;
+    private final List<IGood> nonFoodGoods;
+    private final int nonFoodOverpricePercent;
+    private final int foodOverpricePercent;
+    private final int reductionPricePercent;
+    private final int daysBeforeExpiryDate;
     private double totalDeliveryCost = 0.0;
     private double totalProfitBySoldGoods = 0.0;
 
@@ -134,8 +133,8 @@ public class StoreGoodsService implements IStoreGoodsService {
             serializeGood(good, SerializeType.DELIVERY);
 
             warehouse.removeGood(good);
-            overpriceGood(good);
             totalDeliveryCost += good.getPrice();
+            overpriceGood(good);
 
             System.out.println("The good was delivered!");
         } catch (NotEnoughGoodsByCategoryException
@@ -149,10 +148,11 @@ public class StoreGoodsService implements IStoreGoodsService {
             List<IGood> goods = warehouse.getNumberOfGoodsByCategory(category, quantity);
 
             for (IGood good : goods) {
-                warehouse.removeGood(good);
-                overpriceGood(good);
-                totalDeliveryCost += good.getPrice();
                 serializeGood(good, SerializeType.DELIVERY);
+
+                warehouse.removeGood(good);
+                totalDeliveryCost += good.getPrice();
+                overpriceGood(good);
             }
 
             if (category == Category.FOOD) {

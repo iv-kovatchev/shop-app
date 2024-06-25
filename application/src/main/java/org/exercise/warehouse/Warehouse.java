@@ -18,6 +18,14 @@ public class Warehouse implements IWarehouse {
         this.goodsList = new ArrayList<>();
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public List<IGood> getGoodsList() {
+        return goodsList;
+    }
+
     @Override
     public IGood createGood(String name, LocalDateTime expiryDate, double price, Category category) {
         IGood good = new Good(name, expiryDate, price, category);
